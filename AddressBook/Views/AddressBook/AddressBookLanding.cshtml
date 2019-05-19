@@ -3,14 +3,20 @@
     ViewBag.Title = "AddressBookLanding";
 }
 
-<h2>AddressBookLanding</h2>
+<h2>Address Book Landing</h2>
+<div>
 
-<ul id="tab-menu">
-    <li>
-     @Html.ActionLink("Create Address Book Contact", "CreateAddressBookContact")
-    </li>
-    <li>
-     @Html.ActionLink("Address Book", "AddressBookLanding")
-   </li>
-</ul>
+    <link type="text/css" rel="Stylesheet" href="~/Style/AddressBook.css" />
+</div>
+<id class="container">
+ 
+
+        <ul id="tab-menu">
+            <li>
+                @Html.ActionLink("Create Address Book Contact", "CreateAddressBookContact")
+            </li>
+            <li>
+                @Html.ActionLink("Address Book", "AddressBookLanding")
+            </li>
+        </ul>
 
