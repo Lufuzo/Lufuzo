@@ -17,22 +17,20 @@ namespace AddressBook.Models
         [DisplayName("Name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Title is required")]
-        [StringLength(3)]
+        [StringLength(50)]
         [DisplayName("Title")]
         public string Title { get; set; }
         [Required(ErrorMessage = "BusinessPhoneNumber is required")]
-        [StringLength(50)]
+        [StringLength(Int32.MaxValue, MinimumLength = 10)]
         [DisplayName("BusinessPhoneNumber")]
-        [Range(1, 10)]
         public string BusinessPhoneNumber { get; set; }
-        [Required(ErrorMessage = "Title is required")]
+        [Required(ErrorMessage = "Location is required")]
         [StringLength(50)]
-        [DisplayName("Title")]
+        [DisplayName("Location")]
         public string Location { get; set; }
-        [Required(ErrorMessage = "BusinessPhoneNumber is required")]
+        [Required(ErrorMessage = "Department is required")]
         [StringLength(50)]
-        [DisplayName("BusinessPhoneNumber")]
-        [Range(1, 10)]
+        [DisplayName("Department")]
         public string Department { get; set; }
         [Required(ErrorMessage = "Email Address is required")]
         [DisplayName("EmailAddress")]

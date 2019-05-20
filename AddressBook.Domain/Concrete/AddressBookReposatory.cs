@@ -61,15 +61,14 @@ namespace AddressBook.Domain.Model
             get { return _dbContext.AddressBooks; }
         }
 
-        public string SearchAddressBookContact(string name)
+        public IEnumerable<AddressBook> SearchAddressBookContact(string name)
         {
 
             List<string> listNames = new List<string>();
             if (name != null)
             {
-                  var names =  _dbContext.AddressBooks.Where(x => x.Name == name).FirstOrDefault();
-                return names.ToString();
-               
+                return _dbContext.AddressBooks.Where(x => x.Name.StartsWith(name));
+                //return record;
             }
             else
             {

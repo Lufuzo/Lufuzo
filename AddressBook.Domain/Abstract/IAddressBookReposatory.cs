@@ -10,7 +10,7 @@ namespace AddressBook.Domain.Model
     {
         bool CreateAddressBookContact(AddressBook account);
         IQueryable<AddressBook> GetAllCreateAddressBookContact { get; }
-        string SearchAddressBookContact(string name);
+        IEnumerable<AddressBook> SearchAddressBookContact(string name);
 
     }
 }

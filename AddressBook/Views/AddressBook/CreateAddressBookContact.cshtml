@@ -2,9 +2,8 @@
 
 @{
     ViewBag.Title = "CreateAddressBookContact";
+    ViewBag.Error = "Fail creating address book model not valid";
 }
-
-<h2>CreateAddressBookContact</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -87,5 +86,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "AddressBookLanding")
+    @Html.ActionLink("Back to Home", "AddressBookLanding")
 </div>

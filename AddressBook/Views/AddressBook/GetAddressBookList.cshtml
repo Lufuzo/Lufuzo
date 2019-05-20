@@ -9,10 +9,10 @@
     <p>
         @Html.ActionLink("Create New", "CreateAddressBookContact")
     </p>
-    @using (Html.BeginForm("searchByName", "AddressBook", FormMethod.Get))
+    @using (Html.BeginForm("GetAddressBookList", "AddressBook", FormMethod.Get))
     {
         <p>
-            <b>Search By:</b> @Html.RadioButton("SearchBy", "Name") <b><text>Name Only</text> </b>
+            <b>Search By:</b> @Html.RadioButton("searchByName", "Name")<b><text>Name Only</text> </b>
 
             <b>@Html.TextBox("search")<input type="submit" value="Search"></b>
 
@@ -46,8 +46,15 @@
             </th>
             <th></th>
         </tr>
-
-        @foreach (var item in Model)
+       @if(Model.Count() == 0)
+        {     
+         <tr>
+            <td colspan="7">No details fount</td>
+         </tr>
+        }
+        else
+        {
+      foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -81,6 +88,7 @@
                     </td>*@
             </tr>
         }
+       }
 
     </table>
 </div>

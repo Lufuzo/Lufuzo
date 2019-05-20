@@ -28,12 +28,11 @@ namespace AddressBook.Controllers
         [HttpGet]
         public ActionResult CreateAddressBookContact()
         {
-
             return View("CreateAddressBookContact");
         }
-        [AllowAnonymous]
+     
         [HttpPost]
-        public ActionResult CreateAddressBookContact([Bind(Include = "Name,Company,Department,EmailAddress,Location,Elias,BusinessPhoneNumber")] AddressBookViewModel addressBookViewModel)
+        public ActionResult CreateAddressBookContact([Bind(Include = "Name,Title,Company,Department,EmailAddress,Location,Elias,BusinessPhoneNumber")] AddressBookViewModel addressBookViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -43,42 +42,65 @@ namespace AddressBook.Controllers
                     {
                         AddressBookId = addressBookViewModel.AddressBookId,
                         Name = addressBookViewModel.Name,
+                        Title = addressBookViewModel.Title,
                         Company = addressBookViewModel.Company,
                         EmailAddress = addressBookViewModel.EmailAddress,
                         Location = addressBookViewModel.Location,
                         Elias = addressBookViewModel.Elias,
                         BusinessPhoneNumber = addressBookViewModel.BusinessPhoneNumber,
+                        Department = addressBookViewModel.Department
 
                     });
                     ViewData["SuccessMessage"] = $"AddressContactBook{addressBookViewModel.Name} was successfully inserted";
+                    var model = PopulateAddressBookViewModel();
+                    ViewBag.Error = "Fail creating address book model not valid";
+
+                    return RedirectToAction("GetAddressBookListAll", model);
 
                 }
                 catch (Exception ex)
                 {
-                    ViewData["EditError"] = ex.Message;
+                    ViewData["Error in creating"] = ex.Message;
 
                 }
             }
 
             //return View("Index");
-            var model = PopulateAddressBookViewModel();
+          
+            ViewBag.Error = "Fail creating address book model not valid";
 
-            return RedirectToAction("GetAddressBookList", model);
+            return View("CreateAddressBookContact");
         }
 
 
-     [HttpGet]
-     public ActionResult searchByName(string name)
-      { 
-         if (!String.IsNullOrEmpty(name))
+     //[HttpGet]
+     public ActionResult GetAddressBookList(string searchByName, string search)
+      {
+          var rec = new  AddressBookViewModel();
+         if (searchByName == "Name")
             {
-                var record = _addressBookReposatory.SearchAddressBookContact(name);
-                return View("GetAddressBookList", record);
+                var record = _addressBookReposatory.SearchAddressBookContact(search).FirstOrDefault();
+               
+                rec.AddressBookId = record.AddressBookId;
+                rec.BusinessPhoneNumber = record.BusinessPhoneNumber;
+                rec.Name = record.Name;
+                rec.Company = record.Company;
+                rec.Department = record.Department;
+                rec.EmailAddress = record.EmailAddress;
+                rec.Location = record.Location;
+                rec.Elias = record.Elias;
+                rec.Title = record.Title;
+                var recordDetail = new List<AddressBookViewModel> { rec };
+
+                return View("GetAddressBookList", recordDetail);
+              
             }
-            return View();
+         return View("GetAddressBookList");
+
+
         }
 
-        public ActionResult GetAddressBookList([Bind(Include = "Name,BusinessPhoneNumber,Company,Department,EmailAddress,Location,Title")]AddressBookViewModel addressBookViewModel)
+        public ActionResult GetAddressBookListAll([Bind(Include = "Name,BusinessPhoneNumber,Company,Department,EmailAddress,Location,Title")]AddressBookViewModel addressBookViewModel)
         {
             _addressBookReposatory.GetAllCreateAddressBookContact.Select(s => new AddressBookViewModel
             {
